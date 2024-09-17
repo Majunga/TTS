@@ -14,6 +14,5 @@ WORKDIR /root
 COPY . /root
 
 RUN make install
-
-ENTRYPOINT ["tts"]
-CMD ["--help"]
+ENV CUDA_VISIBLE_DEVICES=0
+ENTRYPOINT ["python3", "TTS/server/server.py", "--model_path", "/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2", "--config_path", "/root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/config.json", "--use_cuda", "true"]

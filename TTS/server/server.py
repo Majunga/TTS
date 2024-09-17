@@ -154,7 +154,7 @@ def index():
         show_details=args.show_details,
         use_multi_speaker=use_multi_speaker,
         use_multi_language=use_multi_language,
-        speaker_ids=speaker_manager.name_to_id if speaker_manager is not None else None,
+        speaker_ids=None,
         language_ids=language_manager.name_to_id if language_manager is not None else None,
         use_gst=use_gst,
     )
@@ -200,7 +200,7 @@ def tts():
         print(f" > Model input: {text}")
         print(f" > Speaker Idx: {speaker_idx}")
         print(f" > Language Idx: {language_idx}")
-        wavs = synthesizer.tts(text, speaker_name=speaker_idx, language_name=language_idx, style_wav=style_wav)
+        wavs = synthesizer.tts(text, speaker_name=speaker_idx, language_name=language_idx, speaker_wav=["/root/.local/share/tts/1.wav"], style_wav=style_wav)
         out = io.BytesIO()
         synthesizer.save_wav(wavs, out)
     return send_file(out, mimetype="audio/wav")
